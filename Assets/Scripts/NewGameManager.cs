@@ -32,7 +32,7 @@ public class NewGameManager : MonoBehaviour
         GameObject lRod, rRod;
         TwinRods refRods;
         //float yGap;
-        yGap = leftBeam.transform.position.y - leftBeam.transform.localScale.x / 2;
+        //yGap = leftBeam.transform.position.y - leftBeam.transform.localScale.x / 2;
         HingeJoint rodHJ;
         Rigidbody rodRB;
 
@@ -46,7 +46,7 @@ public class NewGameManager : MonoBehaviour
         rodHJ=lRod.AddComponent<HingeJoint>();
         rodHJ.connectedBody = beamRB;
         rodHJ.axis = new Vector3(0f, 0f, 1f);
-        lRod.transform.parent = leftBeam.transform;
+        //lRod.transform.parent = leftBeam.transform;
 
         rodRB = lRod.GetComponent<Rigidbody>();
         rodRB.useGravity = (true);
@@ -72,11 +72,12 @@ public class NewGameManager : MonoBehaviour
 
         CreateMainBeam();
         CreateMainBeam(zGap);
+        yGap = leftBeam.transform.position.y - leftBeam.transform.localScale.x / 2;
+
 
         TwinRods[] rodArray;
 
         cradleCount = 1;
-
 
         rodArray = new TwinRods[cradleCount];
 
@@ -86,7 +87,7 @@ public class NewGameManager : MonoBehaviour
         for (int i = 0; i < cradleCount; i++)
         {
             rodArray[i] = SetRods(i);
-            //sphereArray[i] = SetSphere();
+            sphereArray[i] = SetSphere(rodArray[i]);
 
         }
     }
@@ -101,7 +102,7 @@ public class NewGameManager : MonoBehaviour
         beamRB.isKinematic = (true);
         leftBeam.name = "LeftBeam";
 
-        leftBeam.transform.rotation = Quaternion.Euler(-30f, 0f, 0f);
+        //leftBeam.transform.rotation = Quaternion.Euler(-30f, 0f, 0f);
         //leftBeam.transform.Rotate(-30f, 0f, 0f, Space.World);
         //rightBeam.transform.position=new Vector3(0f,)
 
@@ -115,21 +116,24 @@ public class NewGameManager : MonoBehaviour
         
     }
 
-    
-
-    //private GameObject SetSphere()
-    //{
-    //    GameObject refBall;
-    //    float yGap;
-    //    //refYGap= leftBeam.transform.position
-
-    //    refBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-    //    refBall.name = "Cradle";
 
 
+    private GameObject SetSphere(TwinRods referenceRod)
+    {
+        GameObject refBall;
+        //float yGap;
+        //refYGap= leftBeam.transform.position
 
-    //    return refBall;
-    //}
+        refBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        refBall.transform.localScale = new Vector3(tempRadius, tempRadius, tempRadius);
+        refBall.name = "Cradle";
+        //refBall.transform.position = new Vector3(leftBeam.transform.position.x,yGap-referenceRod.)
 
-   
+
+
+
+        return refBall;
+    }
+
+
 }
